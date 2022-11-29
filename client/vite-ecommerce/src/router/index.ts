@@ -1,23 +1,31 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
+import AuthView from '@/modules//auth/views/AuthView.vue'
+import { getTokenApi } from '../apis'
 
 // const requireAuth = (to, from, next) => {
-//   const userAuth = auth.currentUser
-//   if (!userAuth) next({ name: 'Welcome' })
+//   const token = getTokenApi()
+//   if (!token) next({ name: 'Welcome' })
 //   else next()
 // }
 
-// const requireNoAuth = (to, from, next) => {
-//   const userAuth = auth.currentUser
-//   if (userAuth) next({ name: 'Chatroom' })
-//   else next()
-// }
+const requireNoAuth = (to, from, next) => {
+  const token = getTokenApi()
+  if (token) next({ name: 'Home' })
+  else next()
+}
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/auth',
+    name: 'Auth',
+    component: AuthView,
+    beforeEnter: requireNoAuth
   }
 ]
 

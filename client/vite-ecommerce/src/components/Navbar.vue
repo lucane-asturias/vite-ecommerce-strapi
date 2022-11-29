@@ -2,8 +2,8 @@
 
   <v-toolbar class="ui menu" color="#16202b">
     <v-container fluid class="ui container">
+      <nav class="left-menu d-flex mr-auto">
 
-      <div class="left-menu d-flex mr-auto">
         <router-link class="item" to="/">
           <v-app-bar-nav-icon>
             <img class="image"
@@ -14,30 +14,37 @@
           <p>Categorias....</p>
         </router-link>
 
-        <router-link to="/login" class="right-menu item d-flex ml-auto">
-          Iniciar sessão
-        </router-link>
-      </div>
+        <router-link v-if="!token" 
+          class="right-menu item d-flex ml-auto"
+          to="/auth"
+        >Iniciar sessão</router-link>
 
+        <template v-else>
+          <router-link to=""
+            class="right-menu item d-flex ml-auto"
+          >Orders</router-link>
+          <span class="item cart pointer">
+            <v-icon icon="mdi-cart-variant" size="22" />
+          </span>
+          <span class="item logout pointer" @click="onLogout">
+            <v-icon icon="mdi-logout-variant" size="22" />
+          </span>
+        </template>
 
+      </nav>
     </v-container>
   </v-toolbar>
-
-  <!-- <div class="ui secondary menu">
-    <div class="ui container">
-      <div class="left menu">
-        <router-link class="item" to="/">
-          <img class="ui small image"
-            src="../assets/logo.png" 
-            alt="Ecommerce" 
-          />
-        </router-link>
-      </div>
-    </div>
-  </div> -->
 </template>
 
-<script>
+<script setup>
+  import { getTokenApi, deleteTokenApi } from '@/apis/strapi'
+
+  const token = getTokenApi()
+
+  const onLogout = () => {
+    deleteTokenApi()
+    location.replace('/')
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -67,13 +74,6 @@
   .right-menu {
     width: 45%;
     justify-content: flex-end;
-
-    .logout,
-    .cart {
-      &:hover {
-        cursor: pointer
-      }
-    }
   }
 
 }

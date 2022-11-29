@@ -1,16 +1,16 @@
 <template>
   <div class="basic-layout">
-    <Menu />
-    <v-btn color="primary">aeio</v-btn>
+    <Navbar />
 
     <v-container fluid class="ui container">
       <slot />
     </v-container>
+
   </div>
 </template>
 
 <script setup>
-  import Menu from '../components/Menu.vue'
+  import Navbar from '../components/Navbar.vue'
 </script>
 
 <style lang="css" scoped>

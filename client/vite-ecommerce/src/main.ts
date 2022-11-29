@@ -1,8 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import { aliases, mdi } from 'vuetify/iconsets/mdi'
 // import { createPinia } from 'pinia'
 
+import './styles/styles.scss' // global styles
 import 'semantic-ui-css/semantic.min.css'
 
 // Vuetify
@@ -13,7 +15,14 @@ import * as directives from 'vuetify/directives'
 
 const vuetify = createVuetify({
   components,
-  directives
+  directives,
+  icons: {
+    defaultSet: 'mdi',
+    aliases,
+    sets: {
+      mdi,
+    }
+  },
 })
 
 createApp(App)
