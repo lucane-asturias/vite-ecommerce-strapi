@@ -1,2 +1,5 @@
-export { setTokenApi, getTokenApi, deleteTokenApi } from './token'
+export { getCategoriesApi } from './category'
 export { registerApi, loginApi } from './user'
+export { getProducts, getProductsByCategory } from './product'
+export { setTokenApi, getTokenApi, deleteTokenApi } from './token'
+export { addProductCartApi } from './cart'

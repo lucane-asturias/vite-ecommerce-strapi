@@ -11,7 +11,11 @@
               alt="Ecommerce" 
             />
           </v-app-bar-nav-icon>
-          <p>Categorias....</p>
+          <!-- <template v-for="category in categories" :key="category.id">
+            <router-link class="item" :to="category.slugs">
+              {{ category.attributes.title }}
+            </router-link>
+          </template> -->
         </router-link>
 
         <router-link v-if="!token" 
@@ -20,7 +24,7 @@
         >Iniciar sessão</router-link>
 
         <template v-else>
-          <router-link to=""
+          <router-link to="/orders"
             class="right-menu item d-flex ml-auto"
           >Orders</router-link>
           <span class="item cart pointer">
@@ -37,9 +41,18 @@
 </template>
 
 <script setup>
-  import { getTokenApi, deleteTokenApi } from '@/apis/strapi'
+  import { onMounted, ref } from 'vue'
+  import { getCategoriesApi, getTokenApi, deleteTokenApi } from '@/apis/strapi'
 
   const token = getTokenApi()
+
+  let categories = ref(null)
+
+  onMounted(async () => {
+    const response = await getCategoriesApi()
+    console.log('response.data', response.data)
+    categories.value = response.data
+  })
 
   const onLogout = () => {
     deleteTokenApi()
