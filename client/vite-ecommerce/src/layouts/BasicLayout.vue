@@ -6,13 +6,13 @@
       <slot />
     </v-container>
 
-    <Cart />
+    <CartDrawer />
   </div>
 </template>
 
 <script setup>
   import Navbar from '../components/Navbar.vue'
-  import Cart from '../components/Cart/Cart.vue'
+  import CartDrawer from '@/moduiles/cart/views/CartDrawer.vue'
 </script>
 
 <style lang="css" scoped>

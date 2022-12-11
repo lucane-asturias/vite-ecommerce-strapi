@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
-import Category from '../views/Category.vue'
+import Home from '@/views/Home.vue'
 import AuthView from '@/modules//auth/views/AuthView.vue'
+import Category from '@/modules/product-category/views/Category.vue'
 import { getTokenApi } from '@/apis/strapi'
 
 // const requireAuth = (to, from, next) => {
 //   const token = getTokenApi()
-//   if (!token) next({ name: 'Welcome' })
+//   if (!token) next({ name: 'AuthView' })
 //   else next()
 // }
 
@@ -29,6 +29,7 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: requireNoAuth
   },
   {
+    // dynamic routing
     path: '/:category',
     component: Category,
   }

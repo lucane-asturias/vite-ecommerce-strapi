@@ -1,22 +1,28 @@
 <template>
-  <div class="ui card product">
+  <v-card class="product" elevation="5">
     <div class="image">
-      <img :src="'http://localhost:1337' + product.url" :alt="product.name" />
+      <v-img gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.01)"
+        :aspect-ratio="1" height="250" 
+        :src="'http://localhost:1337' + product.url" :alt="product.name" 
+      />
     </div>
-    <div class="content">
-      <div class="header">{{ product.name }}</div>
-      <div class="description">{{ product.price }} €</div>
-    </div>
-    <div class="ui button primary" @click="addProductCartApi(product.productId)">
+    <v-card-text :class="xs ? 'text-caption' : 'text-body-1 font-weight-regular'" v-text="product.name" />
+    <v-card-subtitle class="mb-2 text-subtitle-1">{{ product.price }} €</v-card-subtitle>
+    <v-btn block color="blue darken-5" class="btn font-weight-regular" 
+      @click="addProductCartApi(product.productId)">
       Comprar
-    </div>
-  </div>
+    </v-btn>
+  </v-card>
 </template>
 
 <script lang="ts" setup>
+  import { computed } from 'vue'
+  import { useDisplay } from 'vuetify'
   import { addProductCartApi } from "@/apis/strapi";
 
   defineProps<{ product: object }>()
+  
+  const { xs } = useDisplay()
   
   const addProductCart = (idProduct) => addProductCartApi(idProduct)
 </script>
@@ -24,12 +30,12 @@
 <style lang="scss" scoped>
 .product {
   &:hover {
-    .ui.button {
-      min-height: 36px;
+    .btn {
+      min-height: 34px;
     }
   }
 
-  .ui.button {
+  .btn {
     max-height: 0;
     min-height: 0;
     overflow: hidden;

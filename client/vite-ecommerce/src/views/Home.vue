@@ -1,14 +1,14 @@
 <template>
   <BasicLayout>
     <h1>Last Products</h1>
-    <div class="ui grid">
-      <div class="sixten wide mobile eight wide tablet four wide computer column"
-        v-for="product in products"
-        :key="product.id"
-      >
-        <Product :product="product" />
-      </div>
-    </div>
+    <v-row>
+
+      <v-col cols="12" sm="4" md="3" lg="3"
+        v-for="product in products" :key="product.productId">
+          <Product :product="product" />
+      </v-col>
+
+    </v-row>
   </BasicLayout>
 </template>
 
@@ -21,8 +21,7 @@
   let products = ref(null)
 
   onMounted(async () => {
-    const response = await getProducts(20)
-    const data = response.data
+    const { data } = await getProducts(20)
 
     const productsDetail = []
 
@@ -32,8 +31,6 @@
       const { url } = data[id].attributes.image.data.attributes
       productsDetail.push({productId, name, price, url})
     }
-
-    console.log('productsDetail', productsDetail)
 
     products.value = productsDetail
   })

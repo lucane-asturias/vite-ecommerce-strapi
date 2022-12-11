@@ -3,31 +3,36 @@
   <v-toolbar class="ui menu" color="#16202b">
     <v-container fluid class="ui container">
       <nav class="left-menu d-flex mr-auto">
-
-        <router-link class="item" to="/">
+        
+        <router-link to="/">
           <v-app-bar-nav-icon>
             <img class="image"
               src="../assets/logo.png" 
               alt="Ecommerce" 
             />
           </v-app-bar-nav-icon>
-          <!-- <template v-for="category in categories" :key="category.id">
-            <router-link class="item" :to="category.slugs">
-              {{ category.attributes.title }}
-            </router-link>
-          </template> -->
         </router-link>
 
-        <router-link v-if="!token" 
-          class="right-menu item d-flex ml-auto"
-          to="/auth"
-        >Iniciar sessão</router-link>
+        <template v-for="category in categories" :key="category.id">
+          <router-link class="item" :to="category.attributes.slug">
+            {{ category.attributes.title }}
+          </router-link>
+        </template>
+
+        <template v-if="!token">
+          <router-link 
+            class="right-menu item d-flex ml-auto"
+            to="/auth">
+            Iniciar sessão
+          </router-link>
+        </template>
 
         <template v-else>
           <router-link to="/orders"
             class="right-menu item d-flex ml-auto"
-          >Orders</router-link>
-          <span class="item cart pointer">
+          >Orders
+          </router-link>
+          <span class="item cart pointer" @click="showCart">
             <v-icon icon="mdi-cart-variant" size="22" />
           </span>
           <span class="item logout pointer" @click="onLogout">
@@ -42,9 +47,11 @@
 
 <script setup>
   import { onMounted, ref } from 'vue'
+  import { useCartStore } from '@/store/cartStore'
   import { getCategoriesApi, getTokenApi, deleteTokenApi } from '@/apis/strapi'
 
   const token = getTokenApi()
+  const cartStore = useCartStore()
 
   let categories = ref(null)
 
@@ -58,6 +65,9 @@
     deleteTokenApi()
     location.replace('/')
   }
+
+  const showCart = () => cartStore.setShowCart(true)
+  
 </script>
 
 <style lang="scss" scoped>
