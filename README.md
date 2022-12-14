@@ -1,7 +1,7 @@
 
 ## A Practical Ecommerce project
 
-In this project developed an store where you can add products to the cart using Strapi as a backend.
+In this project developed a store where you can add products to the cart using Strapi as a backend.
 
 ![image](https://user-images.githubusercontent.com/73855493/207512809-c4936edc-f7e8-4769-8932-978072de756b.png)
 
