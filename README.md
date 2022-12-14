@@ -8,4 +8,4 @@ There is a payment gateway that summaries the orders, which will be generated an
 It's possible to buy products, but it does not have a payment platform system, it's only simulated.
 There is also a complete admin panel from Strapi, a category system created with dynamic routing, and an order list after the payment gateway.
 
-Credit: Augustin Navarro's Vue Course 
+Credit: Agustin Navarro's Vue Course 
