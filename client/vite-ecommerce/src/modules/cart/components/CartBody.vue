@@ -1,6 +1,6 @@
 <template>
   <main class="cart-body py-5 px-3 overflow-y">
-    <div class="product" v-for="product in products" :key="product.productId">
+    <div class="product" v-for="product in sortedProducts" :key="product.productId">
       <v-img
         width="100"
         class="mb-2"
@@ -8,7 +8,7 @@
         :alt="product.name"
       />
       <article class="info w-100">
-        <p class="mx-2">{{ product.name }}</p>
+        <p class="mx-2" v-text="product.name" />
         <div class="price">
           <p class="mx-2 my-1">{{ product.price }} €</p>
 
@@ -16,17 +16,17 @@
             <v-btn
               class="px-3"
               color="info"
-              size="x-small"
+              size="small"
               @click="increaseProductCart(product.productId)"
             >
               +
             </v-btn>
-            <p class="mx-3">{{ product.quantity }}</p>
+            <p class="mx-3" v-text="product.quantity" />
             <v-btn
               class="py-1 px-3"
-              color="info"
-              size="x-small"
-              @click="decreaseProductCart(product.productId)"
+              color="red"
+              size="small"
+              @click="deleteProductCart(product.productId)"
             >
               -
             </v-btn>
@@ -38,18 +38,25 @@
 </template>
 
 <script lang="ts" setup>
+  import { computed } from 'vue'
   import { addProductCartApi, deleteProductCartApi } from '@/apis/strapi'
   import { type Products } from '@/interfaces/products'
 
   interface Props { products: Products, reloadCartFn: Function }
   const props = defineProps<Props>()
-  
+
+  const sortedProducts = computed(() => {
+    return props.products.sort((a, b) => {
+      return b.quantity - a.quantity
+    })
+  })
+
   const increaseProductCart = (productId) => {
     addProductCartApi(productId)
     props.reloadCartFn()
   }
 
-  const decreaseProductCart = (productId) => {
+  const deleteProductCart = (productId) => {
     deleteProductCartApi(productId)
     props.reloadCartFn()
   }

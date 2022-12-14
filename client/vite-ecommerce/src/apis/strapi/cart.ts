@@ -1,4 +1,4 @@
-import { uniqBy, countBy } from "lodash"
+import { uniqBy, countBy } from 'lodash'
 const API_URL = 'http://localhost:1337'
 
 export const addProductCartApi = (idProduct) => {
@@ -29,10 +29,10 @@ export const getProductsCartApi = async () => {
       const result = await response.json()
       
       const productId = result.data.id
-      const { name, price } = result.data.attributes
+      const { name, price, createdAt } = result.data.attributes
       const { url } = result.data.attributes.image.data.attributes
 
-      products.push({productId, name, price, url})
+      products.push({productId, name, price, createdAt, url})
     }
 
     const productsCount = countBy(products, (product) => {
@@ -61,18 +61,18 @@ export const deleteProductCartApi = async (idProduct) => {
   localStorage.setItem('products', JSON.stringify(products))
 }
 
-export function deleteAllProductCartApi(idProduct) {
-  // const products = getCartApi()
+export const deleteAllProductCartApi = (idProduct) => {
+  const products = getCartApi()
 
-  // const index = products.indexOf(idProduct)
+  const index = products.indexOf(idProduct)
 
-  // if (index > -1) {
-  //   products.splice(index, 1)
-  //   localStorage.setItem(PRODUCTS, JSON.stringify(products))
-  //   deleteAllProductCartApi(idProduct)
-  // }
+  if (index > -1) {
+    products.splice(index, 1)
+    localStorage.setItem('products', JSON.stringify(products))
+    deleteAllProductCartApi(idProduct) // recursive function
+  }
 }
 
-export function deleteCartApi() {
-  // localStorage.removeItem(PRODUCTS)
+export const deleteCartApi = () => {
+  localStorage.removeItem('products')
 }

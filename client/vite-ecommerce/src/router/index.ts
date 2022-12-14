@@ -1,14 +1,17 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '@/views/Home.vue'
 import AuthView from '@/modules//auth/views/AuthView.vue'
-import Category from '@/modules/product-category/views/Category.vue'
+import ProductCategory from '@/modules/product-category/views/ProductCategory.vue'
+import CartView from '@/modules/cart/views/CartView.vue'
+import Orders from '@/views/Orders.vue'
+
 import { getTokenApi } from '@/apis/strapi'
 
-// const requireAuth = (to, from, next) => {
-//   const token = getTokenApi()
-//   if (!token) next({ name: 'AuthView' })
-//   else next()
-// }
+const requireAuth = (to, from, next) => {
+  const token = getTokenApi()
+  if (!token) next({ name: 'AuthView' })
+  else next()
+}
 
 const requireNoAuth = (to, from, next) => {
   const token = getTokenApi()
@@ -29,9 +32,20 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: requireNoAuth
   },
   {
+    path: '/cart',
+    name: 'Cart',
+    component: CartView,
+    beforeEnter: requireAuth
+  },
+  {
+    path: '/orders',
+    name: 'Orders',
+    component: Orders,
+  },
+  {
     // dynamic routing
     path: '/:category',
-    component: Category,
+    component: ProductCategory,
   }
 ]
 

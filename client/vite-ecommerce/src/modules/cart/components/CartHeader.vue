@@ -1,6 +1,6 @@
 <template>
   <header class="cart-header">
-    <p>Carrito</p>
+    <p>Cart</p>
     <v-icon icon="mdi-close-thick" @click="closeCart" />
   </header>
 </template>

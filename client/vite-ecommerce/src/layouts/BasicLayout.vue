@@ -12,7 +12,7 @@
 
 <script setup>
   import Navbar from '../components/Navbar.vue'
-  import CartDrawer from '@/moduiles/cart/views/CartDrawer.vue'
+  import CartDrawer from '@/modules/cart/views/CartDrawer.vue'
 </script>
 
 <style lang="css" scoped>

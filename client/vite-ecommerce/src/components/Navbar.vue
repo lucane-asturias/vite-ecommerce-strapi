@@ -47,7 +47,7 @@
 
 <script setup>
   import { onMounted, ref } from 'vue'
-  import { useCartStore } from '@/store/cartStore'
+  import { useCartStore } from '@/modules/cart/store/cartStore'
   import { getCategoriesApi, getTokenApi, deleteTokenApi } from '@/apis/strapi'
 
   const token = getTokenApi()
@@ -57,7 +57,6 @@
 
   onMounted(async () => {
     const response = await getCategoriesApi()
-    console.log('response.data', response.data)
     categories.value = response.data
   })
 

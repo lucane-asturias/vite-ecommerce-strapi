@@ -14,7 +14,6 @@ export const getProducts = async (limit = 50) => {
 }
 
 export const getProductsByCategory = async (category) => {
-  console.log('category', category)
   try {
     const response = await window.fetch(
       `${API_URL}/api/products?fields=name&fields=price&populate=image,category&filters[category][slug][$eq]=${category}`

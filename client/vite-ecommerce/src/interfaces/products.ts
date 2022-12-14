@@ -3,5 +3,6 @@ export interface Products {
     name:      string
     price:     number
     quantity:  number
-    url:       string
+    url?:       string,
+    createdAt?: string
 }

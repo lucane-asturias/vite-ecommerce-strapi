@@ -39,7 +39,6 @@
       const { url } = data[id].attributes.image.data.attributes
       categoryDetail.push({productId, name, price, url})
     }
-    console.log('categoryDetail', categoryDetail)
     products.value = categoryDetail
   }
 

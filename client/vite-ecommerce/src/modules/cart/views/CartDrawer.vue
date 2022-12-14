@@ -18,22 +18,22 @@
   import { ref, computed, watchEffect } from 'vue'
   import { type Products } from '@/interfaces/products'
 
-  import CartHeader from './CartHeader.vue'
-  import CartBody from './CartBody.vue'
-  import CartFooter from './CartFooter.vue'
+  import CartHeader from '../components/CartHeader.vue'
+  import CartBody from '../components/CartBody.vue'
+  import CartFooter from '../components/CartFooter.vue'
 
   import { useCartStore } from '../store/cartStore'
   import { getProductsCartApi } from '@/apis/strapi'
 
   let products = ref<Products>()
-  let realodCart = ref(false)
+  let reloadCart = ref(false)
   
   const cartStore = useCartStore()
   const showCart = computed(() => cartStore.showCart)
 
   const getProductsCart = async () => {
     const response = await getProductsCartApi()
-    console.log('response Cart.vue', response)
+    console.log('response', response)
     products.value = response
   }
 
@@ -41,7 +41,7 @@
   const closeCart = () => cartStore.setShowCart(false)
 
   watchEffect(() => {
-    cartStore.value
+    showCart.value
     reloadCart.value
     getProductsCart()
   })
