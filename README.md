@@ -1,5 +1,5 @@
 
-## An Practical Ecommerce project
+## A Practical Ecommerce project
 
 In this project developed an store where you can add products to the cart using Strapi as a backend.
 Throughout the app there is cart drawer listing all the products the user wish to order. 
